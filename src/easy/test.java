@@ -27,9 +27,13 @@ public class test {
     /* Driver Function to test other function */
     public static void main(String[] args)
     {
-        test gfg = new test();
-        String[] input = {"abf", "abcdef", "abcd", "abcf"};
-        System.out.println( "The longest Common Prefix is : " +
-                gfg.longestCommonPrefix(input));
+//        test gfg = new test();*/
+
+
+        int n = (1 + ((10-1)/2));
+        System.out.println(n);
+//        String[] input = {"abf", "abcdef", "abcd", "abcf"};
+//        System.out.println( "The longest Common Prefix is : " +
+//                gfg.longestCommonPrefix(input));
     }
 }
