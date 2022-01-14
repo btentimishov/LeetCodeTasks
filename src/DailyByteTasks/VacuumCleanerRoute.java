@@ -13,7 +13,7 @@ Ex: Given the following strings...
 * */
 public class VacuumCleanerRoute {
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         String s1 = "LR";
         String s2 = "URURD";
         String s3 = "RUULLDRD";
@@ -23,9 +23,9 @@ public class VacuumCleanerRoute {
         System.out.println(isVCHome(s2));
         System.out.println(isVCHome(s3));
 
-    }
+    }*/
 
-    static boolean isVCHome(String route) {
+/*    static boolean isVCHome(String route) {
         String[] arr = route.split("");
         //every time vacuum cleaner moves right we plus +1 to rightLeftState and every time vacuum cleaner moves left we minus -1 to rightLeftState
         int rightLeftState = 0;
@@ -44,5 +44,5 @@ public class VacuumCleanerRoute {
 
 
         return upDownState == 0 && rightLeftState == 0;
-    }
+    }*/
 }

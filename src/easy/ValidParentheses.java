@@ -1,19 +1,113 @@
 package easy;
 
+import java.awt.font.FontRenderContext;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+/*
 
+20. Valid Parentheses
+Link: https://leetcode.com/problems/valid-parentheses/
+
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
+
+
+Example 1:
+
+Input: s = "()"
+Output: true
+Example 2:
+
+Input: s = "()[]{}"
+Output: true
+Example 3:
+
+Input: s = "(]"
+Output: false
+
+
+Constraints:
+
+1 <= s.length <= 104
+s consists of parentheses only '()[]{}'.
+ */
 public class ValidParentheses {
 
     public static void main(String[] args) {
-        boolean isVal = isValid("({)}");
+        ValidParentheses validParentheses = new ValidParentheses();
+        String s = "(){}";
+        boolean isVal = validParentheses.isValid(s);
         if (isVal) System.out.println("Is valid");
         else System.out.println("Is not valid");
     }
-    public static boolean isValid(String s) {
+
+    public boolean isValid(String s) {
+
+
+        //If the length is odd number, than one bracket is not closed, which means string is not valid
+        if (s.length() % 2 == 1) return false;
+
+        //We create string array to hold separate signs of s
+        String[] brackets = s.split("");
+
+
+        int counter = brackets.length;
+        for (int i = 0; i < brackets.length; i++) {
+            if (brackets[i].equals("(")){
+                for (int j = i + 1; j < brackets.length ; j = j + 2) {
+                    if (brackets[j].equals(")")){
+
+
+                        brackets[j] = "null";
+                        brackets[i] = "null";
+
+                        counter -= 2;
+                        break;
+                    }
+                }
+            } else if (brackets[i].equals("[")) {
+                for (int j = i + 1; j < brackets.length ; j = j + 2) {
+                    if (brackets[j].equals("]")){
+
+                        brackets[j] = "null";
+                        brackets[i] = "null";
+
+                        counter -= 2;
+                        break;
+                    }
+                }
+            } else if (brackets[i].equals("{")) {
+                for (int j = i + 1; j < brackets.length ; j = j + 2) {
+                    if (brackets[j].equals("}")){
+
+
+                        brackets[j] = "null";
+                        brackets[i] = "null";
+
+                        counter -= 2;
+                        break;
+                    }
+                }
+            }
+        }
+
+
+        return counter == 0;
+    }
+
+    private void findPartner(){
+
+    }
+
+
+   /* public static boolean isValid(String s) {
 
 
         if (s.length() % 2 == 1) return false;
@@ -32,5 +126,5 @@ public class ValidParentheses {
             }
         }
         return s.length() == 0;
-    }
+    }*/
 }
