@@ -4,11 +4,10 @@ import java.util.HashMap;
 
 public class RomanToInteger {
 
-    static HashMap<String, Integer> pair = new HashMap<>();
 
     public static void main(String[] args) {
 
-
+        RomanToInteger romanToInteger = new RomanToInteger();
         pair.put("I", 1);
         pair.put("V", 5);
         pair.put("X", 10);
@@ -17,23 +16,34 @@ public class RomanToInteger {
         pair.put("D", 500);
         pair.put("M", 1000);
         String word = "MCMXCIV";
-        int s = romanToInt(word);
-
+        int s = romanToInteger.romanToInt(word);
         System.out.println("Word is: " + s);
     }
 
-    public static int romanToInt(String s) {
+    static HashMap<String, Integer> pair = new HashMap<>();
+
+
+    public int romanToInt(String s) {
+
+        pair.put("I", 1);
+        pair.put("V", 5);
+        pair.put("X", 10);
+        pair.put("L", 50);
+        pair.put("C", 100);
+        pair.put("D", 500);
+        pair.put("M", 1000);
+
         if (s.length() <= 0) {
             return 0;
         } else if (s.length() == 1) {
-            if (pair.containsKey("s")) {
+            if (pair.containsKey(s)) {
                 return pair.get(s);
             }
 
             return 0;
         } else {
 
-            String[] sa = stringToCharArray(s);
+            String[] sa = s.split("");
 
             int sum = 0;
 
@@ -107,10 +117,6 @@ public class RomanToInteger {
             }
             return sum;
         }
-    }
-
-    static String[] stringToCharArray(String x) {
-        return x.split("");
     }
 
 }
