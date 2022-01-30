@@ -35,7 +35,7 @@ public class BestSum {
     private ArrayList<Integer> bestSum(int targetSum, int[] numbers, HashMap<Integer, ArrayList<Integer>> memo) {
 
         if (memo.containsKey(targetSum)) return memo.get(targetSum);
-        if (targetSum == 0) return new ArrayList<Integer>();
+        if (targetSum == 0) return new ArrayList<>();
         if (targetSum < 0) return null;
 
         ArrayList<Integer> shortestCombination = null;
