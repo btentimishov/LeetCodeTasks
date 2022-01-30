@@ -33,7 +33,7 @@ public class UniquePaths {
         if (m == 1 && n == 1) return 1;
         if (m == 0 || n == 0) return 0;
 
-        memo.put(key, Integer.sum(findUniquePaths(m - 1, n, memo),findUniquePaths(m, n - 1, memo)));
+        memo.put(key, Integer.sum(findUniquePaths(m - 1, n, memo), findUniquePaths(m, n - 1, memo)));
         return memo.get(key);
     }
 
