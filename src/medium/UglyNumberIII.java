@@ -51,8 +51,8 @@ public class UglyNumberIII {
         ArrayList<Integer> numbers = new ArrayList<>();
 
         int number = 2;
-        while (numbers.size()< n) {
-            if (number % a ==0 || number % b ==0 || number % c ==0) {
+        while (numbers.size() < n) {
+            if (number % a == 0 || number % b == 0 || number % c ==0) {
                 numbers.add(number);
             }
             number++;
