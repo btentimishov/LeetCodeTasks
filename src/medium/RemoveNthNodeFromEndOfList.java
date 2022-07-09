@@ -80,7 +80,7 @@ public class RemoveNthNodeFromEndOfList {
         nPlusOneThNode.next = nThNode.next;
 
 
-//        ListNode newHead = new ListNode();
+//        medium.ListNode newHead = new medium.ListNode();
 //        for (int i = 1; i <= indexOfLastNode - n; i++) {
 //
 //        }
@@ -136,22 +136,4 @@ public class RemoveNthNodeFromEndOfList {
 
     }
 
-}
-
-
-class ListNode {
-    int val;
-    ListNode next;
-
-    public ListNode() {
-    }
-
-    ListNode(int val) {
-        this.val = val;
-    }
-
-    ListNode(int val, ListNode next) {
-        this.val = val;
-        this.next = next;
-    }
 }
