@@ -4,7 +4,7 @@ import java.util.Stack;
 
 public class ValidPalindrome125 {
     public static void main(String[] args) {
-
+        System.out.println((char)97);
     }
 
     public boolean isPalindrome(String s) {
