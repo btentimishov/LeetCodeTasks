@@ -46,6 +46,11 @@ s consists of English letters (lower-case and upper-case), ',' and '.'.
 public class ZigzagConversion {
 
     public static void main(String[] args) {
+        int n = 1;
+        int a = -4;
+
+        n = -a;
+        System.out.println(n);
 //        ZigzagConversion zigzagConversion = new ZigzagConversion();
 //        zigzagConversion.convert("PAYPALISHIRING", 3);
     }

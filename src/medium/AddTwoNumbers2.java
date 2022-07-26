@@ -1,10 +1,5 @@
 package medium;
 
-import org.w3c.dom.Node;
-
-import javax.management.loading.MLet;
-import java.util.concurrent.RecursiveTask;
-
 /*
 
 2. Add Two Numbers
@@ -40,7 +35,7 @@ It is guaranteed that the list represents a number that does not have leading ze
 
 
 */
-public class AddTwoNumbers {
+public class AddTwoNumbers2 {
 
     public static void main(String[] args) {
         ListNode node20 = new ListNode(1);
@@ -65,7 +60,7 @@ public class AddTwoNumbers {
         ListNode node2 = new ListNode(1, node3);
         ListNode node1 = new ListNode(1, node2);
 
-        AddTwoNumbers addTwoNumbers = new AddTwoNumbers();
+        AddTwoNumbers2 addTwoNumbers = new AddTwoNumbers2();
         ListNode node = addTwoNumbers.addTwoNumbers(node1, node20);
         System.out.print("[");
         System.out.print(node.val);
@@ -79,61 +74,27 @@ public class AddTwoNumbers {
     }
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        //We have node. We should create a number from list
+        return addTwoNumbersWithLeft(l1, l2, 0);
 
-
-        long one = l1.val;
-        long two = l2.val;
-        long i = 10;
-
-        //Here we create integer from digits that are hold in nodes
-        while (l1.next != null) {
-
-            long nextVal = l1.next.val;
-            one += nextVal * i;
-            i *= 10;
-            l1 = l1.next;
-        }
-        i = 10;
-        while (l2.next != null) {
-            long nextVal = l2.next.val;
-
-            two += nextVal * i;
-            i *= 10;
-            l2 = l2.next;
-        }
-
-        //then we make a sum from one and two
-        long sum = one + two;
-        System.out.println("Sum: " + sum);
-        //next step is to reverse this sum
-
-        //to reverse we have to find the length of the sum
-
-        int length = 0;
-        long temp = 1;
-        while (temp <= sum) {
-            length++;
-            temp *= 10;
-        }
-
-
-        return createNode(sum, length);
-    }
-    public ListNode createNode(long i, int length){
-
-        ListNode node = null;
-
-        if (length <= 1) {
-            node = new ListNode((int) i);
-        } else {
-
-            long hi = i % 10;
-            node = new ListNode((int) hi);
-            i /= 10;
-            node.next = createNode(i, --length);
-        }
-        return node;
     }
 
+    public ListNode addTwoNumbersWithLeft(ListNode l1, ListNode l2, int left) {
+        if(l1 == null && l2 == null) return left == 1 ? new ListNode(1) : null;
+
+
+        ListNode curr = new ListNode();
+
+        int val1 = l1 != null ? l1.val : 0;
+        int val2 = l2 != null ? l2.val : 0;
+
+
+        int sum = val1 + val2 + left;
+        curr.val = sum > 9 ? sum -10 : sum;
+        left = sum > 9 ? 1 : 0;
+
+        curr.next = addTwoNumbersWithLeft(l1 != null ? l1.next : null,
+                l2 != null ? l2.next : null,
+                left);
+        return curr;
+    }
 }
