@@ -2,10 +2,8 @@ package easy;
 
 import java.awt.font.FontRenderContext;
 import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+
 /*
 
 20. Valid Parentheses
@@ -42,7 +40,7 @@ public class ValidParentheses {
 
     public static void main(String[] args) {
         ValidParentheses validParentheses = new ValidParentheses();
-        String s = "(){}";
+        String s = "()[]{}";
         boolean isVal = validParentheses.isValid(s);
         if (isVal) System.out.println("Is valid");
         else System.out.println("Is not valid");
@@ -50,81 +48,36 @@ public class ValidParentheses {
 
     public boolean isValid(String s) {
 
+        Stack<Character> stack = new Stack<>();
+        Map<Character, Character> map = new HashMap<>();
+        map.put(')', '(');
+        map.put('}', '{');
+        map.put(']', '[');
 
-        //If the length is odd number, than one bracket is not closed, which means string is not valid
-        if (s.length() % 2 == 1) return false;
-
-        //We create string array to hold separate signs of s
-        String[] brackets = s.split("");
-
-
-        int counter = brackets.length;
-        for (int i = 0; i < brackets.length; i++) {
-            if (brackets[i].equals("(")){
-                for (int j = i + 1; j < brackets.length ; j = j + 2) {
-                    if (brackets[j].equals(")")){
-
-
-                        brackets[j] = "null";
-                        brackets[i] = "null";
-
-                        counter -= 2;
-                        break;
-                    }
-                }
-            } else if (brackets[i].equals("[")) {
-                for (int j = i + 1; j < brackets.length ; j = j + 2) {
-                    if (brackets[j].equals("]")){
-
-                        brackets[j] = "null";
-                        brackets[i] = "null";
-
-                        counter -= 2;
-                        break;
-                    }
-                }
-            } else if (brackets[i].equals("{")) {
-                for (int j = i + 1; j < brackets.length ; j = j + 2) {
-                    if (brackets[j].equals("}")){
-
-
-                        brackets[j] = "null";
-                        brackets[i] = "null";
-
-                        counter -= 2;
-                        break;
-                    }
-                }
-            }
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            tryOut(stack, map, c);
         }
 
-
-        return counter == 0;
+        return stack.size() == 0;
     }
 
-    private void findPartner(){
-
+    private static void tryOut(Stack<Character> stack, Map<Character, Character> map, char c) {
+        if (map.containsKey(c)) {
+            if (stack.isEmpty()) {
+                stack.push(c);
+                return;
+            }
+            char c1 = stack.peek();
+            if (c1 == map.get(c)) {
+                stack.pop();
+            } else {
+                stack.push(c);
+            }
+        } else {
+            stack.push(c);
+        }
     }
 
 
-   /* public static boolean isValid(String s) {
-
-
-        if (s.length() % 2 == 1) return false;
-        if (s.length() == 0) return false;
-
-        List<List<String>> listOfLists = new ArrayList<>();
-        listOfLists.add(new ArrayList<>(Arrays.asList("\\(", "\\)")));
-        listOfLists.add(new ArrayList<>(Arrays.asList("\\[", "\\]")));
-        listOfLists.add(new ArrayList<>(Arrays.asList("\\{", "\\}")));
-
-        for (int i = 0; i < listOfLists.size(); i++) {
-            while (s.contains(listOfLists.get(i).get(0).replaceFirst("\\\\", ""))
-                    && s.contains(listOfLists.get(i).get(1).replaceFirst("\\\\", ""))) {
-                s = s.replaceFirst(listOfLists.get(i).get(0),"");
-                s = s.replaceFirst(listOfLists.get(i).get(1),"");
-            }
-        }
-        return s.length() == 0;
-    }*/
 }
