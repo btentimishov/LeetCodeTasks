@@ -8,7 +8,16 @@ public class LongestSubstringWithoutRepeatingCharacters3 {
 
     }
 
+    public String restoreString(String s, int[] indices) {
+        StringBuilder result = new StringBuilder(s);
 
+        int i = 0;
+        while (i < indices.length) {
+            result.setCharAt(indices[i], s.charAt(i));
+            i++;
+        }
+        return result.toString();
+    }
     public int lengthOfLongestSubstring(String s) {
 
         if (s.length() == 0 || s.length() == 1) return s.length();
