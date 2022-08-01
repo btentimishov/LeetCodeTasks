@@ -1,18 +1,14 @@
-package medium;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import java.util.*;
-
-public class FindAllAnagramsInAString438 {
-
+public class Test {
     public static void main(String[] args) {
-
-        FindAllAnagramsInAString438 find = new FindAllAnagramsInAString438();
-
-        String a = "baba";
-        String b = "ab";
-        System.out.println(find.findAnagrams(a, b));
-
+        Test test = new Test();
+        System.out.println(test.findAnagrams("cbaebabacd", "abc"));
     }
+
 
     public List<Integer> findAnagrams(String s, String p) {
 
@@ -55,6 +51,31 @@ public class FindAllAnagramsInAString438 {
 
         return result;
     }
-
-
 }
+
+//            char c = s.charAt(i);
+//            if (!map.containsKey(c)) {
+//                temp = new HashMap<>(map);
+//                continue;
+//            }
+
+/*
+*
+                String str = s.substring(i, i + (size - 1));
+
+                for (int j = 0; j < size; j++) {
+                    char c = str.charAt(j);
+                    if (temp.containsKey(c)) {
+                        temp.put(c, temp.get(c) - 1);
+                        if (temp.get(c) == 0) {
+                            temp.remove(c);
+                        }
+                        if (temp.isEmpty()) {
+                            result.add(i);
+                            break;
+                        }
+                    } else {
+                        i += j + 1;
+                        break;
+                    }
+                }*/
