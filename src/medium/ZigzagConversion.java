@@ -1,6 +1,7 @@
 package medium;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -51,9 +52,54 @@ public class ZigzagConversion {
 
         n = -a;
         System.out.println(n);
-//        ZigzagConversion zigzagConversion = new ZigzagConversion();
-//        zigzagConversion.convert("PAYPALISHIRING", 3);
+        ZigzagConversion zigzagConversion = new ZigzagConversion();
+        System.out.println(zigzagConversion.convert("PAYPALISHIRING", 4));
     }
+
+    public String convert(String s, int numRows) {
+        if(s.length() == 1 || s.length() == 2 || numRows == 1) return s;
+
+        String[] strings = new String[numRows];
+
+        int k = 0;
+        boolean goDown = true;
+        int i = 0;
+        while (i < s.length()) {
+            char c = s.charAt(i);
+            StringBuilder builder = new StringBuilder();
+            if (strings[k] != null) {
+                builder.append(strings[k]);
+            }
+
+            builder.append(c);
+            strings[k] = builder.toString();
+
+
+            if (k == numRows - 1) {
+                goDown = false;
+            } else if (k == 0) {
+                goDown = true;
+            }
+
+            if (goDown) k++;
+            else k--;
+            i++;
+        }
+
+
+        StringBuilder builder = new StringBuilder();
+
+
+        for (String str :
+                strings) {
+            if (str != null) {
+                builder.append(str);
+            }
+        }
+        return builder.toString();
+
+    }
+
 
 //    public String convert(String s, int numRows) {
 //        List<List<Character>> list = new ArrayList<>();
