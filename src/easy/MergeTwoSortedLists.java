@@ -1,7 +1,11 @@
 package easy;
 
+import java.util.Stack;
+
 public class MergeTwoSortedLists {
     public static void main(String[] args) {
+        Stack<Character> stack = new Stack<>();
+
         ListNode l13 = new ListNode(4);
         ListNode l12 = new ListNode(2, l13);
         ListNode l11 = new ListNode(1, l12);

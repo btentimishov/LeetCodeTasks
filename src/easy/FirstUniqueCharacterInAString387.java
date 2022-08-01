@@ -15,18 +15,19 @@ public class FirstUniqueCharacterInAString387 {
 
         Map<Character, Integer> map = new HashMap<>();
 
-        char[] list = new char[s.length()];
-        char[] charArray = s.toCharArray();
-        for (int i = 0; i < charArray.length; i++) {
-            char c = charArray[i];
+        int k = 0;
+        while (k < s.length()) {
+            char c = s.charAt(k);
             map.put(c, map.getOrDefault(c, 0) + 1);
-            list[i] = c;
+            k++;
         }
 
-        for (int i = 0; i < list.length; i++) {
-            if (map.get(list[i]) == 1) {
-                return i;
+        k = 0;
+        while (k < s.length()) {
+            if (map.get(s.charAt(k)) == 1) {
+                return k;
             }
+            k++;
         }
 
         return -1;

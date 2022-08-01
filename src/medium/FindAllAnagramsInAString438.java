@@ -5,12 +5,14 @@ import java.util.*;
 public class FindAllAnagramsInAString438 {
 
     public static void main(String[] args) {
-
-        FindAllAnagramsInAString438 find = new FindAllAnagramsInAString438();
-
-        String a = "baba";
-        String b = "ab";
-        System.out.println(find.findAnagrams(a, b));
+        String s = "30003";
+        System.out.println(s.substring(0, 2-1));
+//        FindAllAnagramsInAString438 find = new FindAllAnagramsInAString438();
+//        Integer value = Integer.valueOf("00");
+//        System.out.println(value);
+//        String a = "baba";
+//        String b = "ab";
+//        System.out.println(find.findAnagrams(a, b));
 
     }
 

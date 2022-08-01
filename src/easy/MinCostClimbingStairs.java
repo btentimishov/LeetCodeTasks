@@ -1,6 +1,7 @@
 package easy;
 
 import java.util.Arrays;
+import java.util.List;
 
 /*
 746. Min Cost Climbing Stairs
@@ -59,7 +60,11 @@ public class MinCostClimbingStairs {
 //        System.out.println(stairs.minCostClimbingStairs(arr3));
 //        System.out.println(stairs.minCostClimbingStairs(arr4));
     }
+    private List<String> test() {
+        String[] arr = new String[12];
 
+        return Arrays.asList(arr);
+    }
     public int minCostClimbingStairs(int[] cost) {
 //        int paid = 0;
 //
