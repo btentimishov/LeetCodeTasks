@@ -12,62 +12,103 @@ public class SimplifyPath71 {
         // "/a//b////c/d//././/.." "/a/../../b/../c//.//" "/a/./b/../../c/"
     }
 
+    /*
+    Test cases
+    "/home/"
+    "/../"
+    "/home//foo/"
+    "/..hidden"
+    "/..."
+    "/a//b////c/d//././/.."
+    "/a/../../b/../c//.//"
+    "/a/./b/../../c/"
+    *
+    * */
     public String simplifyPath(String path) {
         Stack<Character> stack = new Stack<>();
         int size = path.length();
         char dot = '.';
         char slash = '/';
+
         for (int i = 0; i < size; i++) {
             char c = path.charAt(i);
 
             if (stack.isEmpty()) {
                 stack.push(c);
-                continue;
             }
 
             if (c == slash) {
-                char cPrev = stack.peek();
-                if (cPrev == slash && i == size - 1 && i > 0) {
-                    stack.pop();
-                    continue;
-                }
-                if (cPrev == slash || i == size - 1) continue;
+                if (i == size - 1) {
+                    if (stack.peek() == slash) {
+                        if (stack.size() == 1) continue;
+                        stack.pop();
+                        break;
+                    }                }
+                if (stack.peek() == slash) continue;
                 stack.push(c);
             } else if (c == dot) {
                 char cPrev = stack.peek();
-                char cNext = i == size - 1 ? path.charAt(i + 1) : '9';
+                char cNext = i != size - 1 ? path.charAt(i + 1) : ' ';
 
-
-                if (cNext == dot && cPrev == dot) {
+                // c cPrev cNext are dots
+                if (cPrev == dot && cNext == dot) {
                     stack.push(c);
                     stack.push(cNext);
                     i++;
-                } else if (cNext != dot && cPrev == dot) {
-
-                    if (Character.isLetter(cNext)) {
-                        stack.push(c);
-                    }
-                    stack.pop(); //prev dot is deleted
-                    if (stack.isEmpty()) continue;
+                    continue;
+                }
 
 
-                    cPrev = stack.peek();
-                    if (cPrev == slash) {
+                // c cPrev are dots, cNext is not dot
+                if (cPrev == dot) {
+                    if (cNext== ' ') {
+                        stack.pop();//deleted last dot
+
+                        if (stack.isEmpty() || stack.size() == 1) {
+                            continue;
+                        }
                         stack.pop();
-                        if (stack.isEmpty()) {
-                            stack.push(cPrev);
-                        } else {
-                            while (stack.peek() != slash) {
+
+                        if (!stack.isEmpty()) {
+                            while (stack.peek() != '/') {
                                 stack.pop();
                             }
                         }
+                        continue;
                     }
-                    //delete somehow the home view
-                } else if (cNext == dot) {
+
+                    if (cNext != slash) {
+                        stack.push(c);
+                        continue;
+                    }
+
+                    stack.pop();//deleted last dot
+
+                    if (stack.isEmpty() || stack.size() == 1) {
+                        continue;
+                    }
+                    stack.pop();
+
+                    if (!stack.isEmpty()) {
+                        while (stack.peek() != '/') {
+                            stack.pop();
+                        }
+                    }
+                    continue;
+                }
+
+                // c cNext are dots, cPrev is not dot
+                if (cNext == dot) {
                     stack.push(c);
                 }
             } else {
                 stack.push(c);
+            }
+        }
+
+        if (stack.size() > 1) {
+            if (stack.peek() == slash) {
+                stack.pop();
             }
         }
 
