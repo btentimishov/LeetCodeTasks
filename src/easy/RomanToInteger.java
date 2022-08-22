@@ -1,122 +1,72 @@
 package easy;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class RomanToInteger {
 
 
     public static void main(String[] args) {
-
+        int i = 'I' - '@';
+        System.out.println(i);
         RomanToInteger romanToInteger = new RomanToInteger();
-        pair.put("I", 1);
-        pair.put("V", 5);
-        pair.put("X", 10);
-        pair.put("L", 50);
-        pair.put("C", 100);
-        pair.put("D", 500);
-        pair.put("M", 1000);
-        String word = "MCMXCIV";
-        int s = romanToInteger.romanToInt(word);
-        System.out.println("Word is: " + s);
+//        pair.put("I", 1);
+//        pair.put("V", 5);
+//        pair.put("X", 10);
+//        pair.put("L", 50);
+//        pair.put("C", 100);
+//        pair.put("D", 500);
+//        pair.put("M", 1000);
+//        String word = "MCMXCIV";
+//        int s = romanToInteger.romanToInt(word);
+//        System.out.println("Word is: " + s);
     }
 
-    static HashMap<String, Integer> pair = new HashMap<>();
-
-
+    //    static HashMap<String, Integer> pair = new HashMap<>();
     public int romanToInt(String s) {
+        int[] map = new int[26];
+        map['I' - '@'] = 1;
+        map['V' - '@'] = 5;
+        map['X' - '@'] = 10;
+        map['L' - '@'] = 50;
+        map['C' - '@'] = 100;
+        map['D' - '@'] = 500;
+        map['M' - '@'] = 1000;
 
-        pair.put("I", 1);
-        pair.put("V", 5);
-        pair.put("X", 10);
-        pair.put("L", 50);
-        pair.put("C", 100);
-        pair.put("D", 500);
-        pair.put("M", 1000);
+        if (s.length() == 1) return map[s.charAt(0) - '@'];
 
-        if (s.length() <= 0) {
-            return 0;
-        } else if (s.length() == 1) {
-            if (pair.containsKey(s)) {
-                return pair.get(s);
+
+        int result = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            //if it's last we just get the value from map
+            if (i == s.length() - 1) {
+                result += map[c - '@'];
+                break;
+            }
+            char cNext = s.charAt(i + 1);
+
+            int toAdd;
+
+            if (c == 'I' && ((cNext == 'V') || (cNext == 'X'))) {
+                //if next is V or X
+                toAdd = map[cNext - '@'] - 1;
+                i++;
+            } else if (c == 'X' && (cNext == 'L' || cNext == 'C')) {
+                //if next is L or C
+                toAdd = map[cNext - '@'] - 10;
+                i++;
+            } else if (c == 'C' && (cNext == 'D' || cNext == 'M')) {
+                //if next is D or M
+                toAdd = map[cNext - '@'] - 100;
+                i++;
+            } else {
+                toAdd = map[c - '@'];
             }
 
-            return 0;
-        } else {
-
-            String[] sa = s.split("");
-
-            int sum = 0;
-
-            for (int i = 0; i < sa.length; i++) {
-                int a = 0;
-
-                if ((sa[i].equals("I")) && ((i + 1) < sa.length)) {
-                    if (sa[i + 1].equals("V")) {
-                        a = 4;
-
-
-                        sum = sum + a;
-                        i++;
-
-                        System.out.println("11 done");
-
-                    } else if (sa[i + 1].equals("X")) {
-                        a = 9;
-
-                        sum = sum + a;
-                        i++;
-                        System.out.println("12 done");
-
-                    } else {
-                        sum = sum + pair.get(sa[i]);
-                    }
-
-                    System.out.println("1 done");
-                } else if ((sa[i].equals("X")) && ((i + 1) < sa.length)) {
-                    if (sa[i + 1].equals("L")) {
-                        a = 40;
-                        sum = sum + a;
-                        i++;                    System.out.println("21 done");
-
-                    } else if (sa[i + 1].equals("C")) {
-                        a = 90;
-                        sum = sum + a;
-                        i++;
-                        System.out.println("22 done");
-
-                    } else {
-                        sum = sum + pair.get(sa[i]);
-                    }
-
-                    System.out.println("2 done");
-
-
-                } else if ((sa[i].equals("C")) && ((i + 1) < sa.length)) {
-                    if (sa[i + 1].equals("D")) {
-                        a = 400;
-                        sum = sum + a;
-                        i++;                    System.out.println("31 done");
-
-                    } else if (sa[i + 1].equals("M")) {
-                        a = 900;
-                        sum = sum + a;
-                        i++;
-                        System.out.println("32 done");
-                    } else {
-                        sum = sum + pair.get(sa[i]);
-                    }
-
-
-                    System.out.println("3 done");
-
-                } else {
-                    System.out.println("Sum with index: " + i + " is a : " + sum);
-                    sum = sum + pair.get(sa[i]);
-                }
-
-            }
-            return sum;
+            result += toAdd;
         }
-    }
 
+        return result;
+    }
 }

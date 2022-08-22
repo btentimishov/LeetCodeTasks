@@ -20,56 +20,29 @@ public class MergeTwoSortedArray88 {
 
 
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        if (n == 0) return;
 
+        if (m + n == 0) return;
 
-        int[] newArr = new int[n + m];
+        int iLast = m + n - 1, i1 = m - 1, i2 = n - 1;
 
-
-        int k1 = 0;
-        int k2 = 0;
-
-        for (int i = 0; i < newArr.length; i++) {
-            int a = nums1[k1];
-            int b = nums2[k2];
-
-            if (a == 0) {
-                newArr[i] = b;
-                k1++;
-                k2++;
-                continue;
+        while (iLast > 0) {
+            int temp = 0;
+            if (i1 < 0) {
+                temp = nums2[i2];
+                i2--;
+            } else if (i2 < 0) {
+                temp = nums1[i1];
+                i1--;
+            } else if (nums1[i1] > nums2[i2]) {
+                temp = nums1[i1];
+                i1--;
+            } else if (nums1[i1] <= nums2[i2]) {
+                temp = nums2[i2];
+                i2--;
             }
 
-            if (a > b) {
-                newArr[i] = b;
-                k2++;
-            } else {
-                newArr[i] = a;
-                k1++;
-            }
+            nums1[iLast] = temp;
+            iLast--;
         }
-
-
-        for (int i = 0; i < newArr.length; i++) {
-            nums1[i] = newArr[i];
-        }
-//        nums1 = Arrays.copyOf(newArr, newArr.length);
-
-//        System.out.println(Arrays.toString(nums1));
-//        System.out.println(Arrays.toString(newArr));
-/*        int k = 0;
-        for (int i = 0; i < m; i++) {
-            int a = nums1[i];
-            int b = nums2[k];
-            if (b < a) {
-                nums1[i] = b;
-                nums2[k] = a;
-            }
-        }
-        k = m;
-        for (int j : nums2) {
-            nums1[k] = j;
-            k++;
-        }*/
     }
 }

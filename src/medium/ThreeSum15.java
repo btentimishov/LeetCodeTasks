@@ -7,8 +7,11 @@ public class ThreeSum15 {
 
     public static void main(String[] args) {
 //        ThreeSum15 threeSum15 = new ThreeSum15();
+        ThreeSum15 threeSum15 = new ThreeSum15();
+
+        threeSum15.threeSum(new int[]{-1, 0, 1, 2, -1, -4});
         // case: 11111 result "PKI"
-        System.out.println((char)(65));
+        System.out.println((char) (65));
 
 
 //        int i = 427;
@@ -49,47 +52,31 @@ public class ThreeSum15 {
 //                ).toString());
     }
 
+
     public List<List<Integer>> threeSum(int[] nums) {
 
-        HashMap<Integer, List<List<Integer>>> map = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = i + 1; j < nums.length; j++) {
 
-                int sum = nums[i] + nums[j];
-                ArrayList<Integer> tempList = new ArrayList<>();
-                tempList.add(i);
-                tempList.add(j);
-
-                List<List<Integer>> bigTempList = new ArrayList<>();
-                if (map.containsKey(sum)) {
-                    bigTempList = map.get(sum);
-                }
-                bigTempList.add(tempList);
-                map.put(sum, bigTempList);
-            }
-        }
+        Arrays.sort(nums);
         List<List<Integer>> result = new ArrayList<>();
 
-        for (int i = 0; i < nums.length; i++) {
-            int num = nums[i];
-            if (map.containsKey(-num)) {
-                List<List<Integer>> bigTempList = map.get(-num);
+        for (int i = 0; i < nums.length - 2; i++) {
+            int a = nums[i];
+            if (i != 0)
+                if (a == nums[i - 1]) continue; // we are checking for duplicate, if prev is the same we just go to next
 
-                for (List<Integer> tempList : bigTempList) {
-                    int i0 = tempList.get(0);
-                    int i1 = tempList.get(1);
 
-                    if (i != i0 && i != i1) {
-                        ArrayList<Integer> temp = new ArrayList<>();
-                        temp.add(num);
-                        temp.add(nums[i0]);
-                        temp.add(nums[i1]);
+            int left = i + 1; // first pointer to check from left, it's i + 1 so
+            int right = nums.length - 1; // second pointer to check from right
 
-                        Collections.sort(temp);
-                        if (!result.contains(temp)) {
-                            result.add(temp);
-                        }
 
+            while (left < right) {
+                int sum = nums[left] + nums[right] + a;
+                if (sum > 0) right--;
+                else if (sum < 0) left++;
+                else {
+                    result.add(Arrays.asList(a, nums[left], nums[right]));
+                    while (nums[left] == nums[left - 1] && left < right) {
+                        left++;
                     }
                 }
             }
@@ -98,76 +85,22 @@ public class ThreeSum15 {
 
     }
 
-//    public List<List<Integer>> threeSum(int[] nums) {
-//
-//        Arrays.sort(nums);
-//        List<List<Integer>> result = new ArrayList<>();
-//        HashMap<Integer, List<List<Integer>>> map = new HashMap<>();
-//        map.put(nums[0] + nums[1], new ArrayList<ArrayList<Integer>>() {
-//            {
-//                new ArrayList<>(Arrays.asList(0, 1));
-//            }
-//        };
-//
-//
-//        for (int i = 2; i < nums.length; i++) {
-//            if (map.containsKey(-nums[i])) {
-//                List<List<Integer>> hehe = map.get(-nums[i]);
-//
-//
-//                for (List<Integer> temp1 : hehe) {
-//                    if (i != temp1.get(0) && i != temp1.get(1)) {
-//                        List<Integer> temp = new ArrayList<>();
-//
-//                        temp.add(nums[temp1.get(0)]);
-//                        temp.add(nums[temp1.get(1)]);
-//                        temp.add(nums[i]);
-//                        result.add(temp);
-//
-//
-//                        map.put(nums[temp1.get(0)] + nums[0], new ArrayList<>(Arrays.asList(temp1.get(0), i)));
-//                        map.put(nums[temp1.get(1)] + nums[0], new ArrayList<>(Arrays.asList(temp1.get(1), i)));
-//                    }
-//                }
-//            } else {
-//                int twoSum = nums[i] + nums[i - 1];
-//                List<List<Integer>> haha = new ArrayList<>();
-//
-//                map.put(twoSum, map.getOrDefault(twoSum, new ArrayList<Arra>(Arrays.asList(i, i - 1))));
-//            }
-//        }
-//        return result;
-//
-//    }
+    public int arithmeticTriplets(int[] nums, int diff) {
 
+        int result = 0;
+        for (int i = 0; i < nums.length - 2; i++) {
+            for (int j = i + 1; j < nums.length - 1; j++) {
+                if (nums[i] > nums[j])
+                if (nums[j] < diff) continue;
+                if (nums[i] < diff) break;
+                if (nums[j] - nums[i] != diff) continue;
 
-    public String convertToTitle(int columnNumber) {
-        if (columnNumber <= 26) return String.valueOf((char) (columnNumber + 64));
-        List<Character> list = new ArrayList<>();
-        list.add((char) (columnNumber % 26 + 64));
-        columnNumber /= 26;
-
-        while (columnNumber > 26) {
-            int rest = columnNumber / 26;
-
-            while (rest > 26) {
-                rest = rest / 26;
+                for (int k = j + 1; k < nums.length; k++) {
+                    if (nums[k] - nums[j] != diff) continue;
+                    result++;
+                }
             }
-
-
-            list.add((char) (rest % 26 + 64));
-
-
-            columnNumber = columnNumber - (rest * 26);
-
         }
-
-        StringBuilder sb = new StringBuilder();
-        for (int i = list.size() - 1; i >= 0; i--) {
-            sb.append(list.get(i));
-        }
-        return sb.toString();
-
-
+        return result;
     }
 }
