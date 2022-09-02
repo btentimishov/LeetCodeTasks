@@ -5,9 +5,13 @@ import java.util.Stack;
 
 public class SimplifyPath71 {
     public static void main(String[] args) {
-        SimplifyPath71 simplifyPath71 = new SimplifyPath71();
+        boolean darkMode = false;
+        System.out.println("javascript:setDarkMode(" + darkMode + ")");
+        
+        
+//        SimplifyPath71 simplifyPath71 = new SimplifyPath71();
 //        simplifyPath71.simplifyPath("/a/../../b/../c//.//");
-        simplifyPath71.simplifyPath("/a//b////c/d//././/..");
+//        simplifyPath71.simplifyPath("/a//b////c/d//././/..");
 
         // "/a//b////c/d//././/.." "/a/../../b/../c//.//" "/a/./b/../../c/"
     }
