@@ -6,42 +6,33 @@ import java.util.List;
 
 public class Permutations46 {
     public static void main(String[] args) {
+        Permutations46 permutations46 = new Permutations46();
 
+        System.out.println(permutations46.permute(new int[] {1,2,3}));
     }
-
     public List<List<Integer>> permute(int[] nums) {
+
         List<List<Integer>> result = new ArrayList<>();
 
-        if (nums.length == 1) {
-            List<Integer> temp = new ArrayList<>();
-            for (int num : nums) {
-                temp.add(num);
-            }
-            result.add(temp);
-            return result;
-        }
-
-
-
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = 0; j < nums.length - 1; j++) {
-                List<Integer> temp = new ArrayList<>();
-                for (int num : nums) {
-                    temp.add(num);
-                }
-                result.add(temp);
-                swap(j, j + 1, nums);
-            }
-
-        }
+        permute(result, new ArrayList<>(), nums);
 
         return result;
+
     }
 
-    void swap(int i1, int i2, int[] arr) {
-        int a = arr[i1];
-        arr[i1] = arr[i2];
-        arr[i2] = a;
+
+    public void permute(List<List<Integer>> list, List<Integer> tempList, int[] nums) {
+
+        if (tempList.size() == nums.length) {
+            list.add(new ArrayList<>(tempList));
+        } else {
+            for (int num : nums) {
+                if (tempList.contains(num)) continue;
+                tempList.add(num);
+                permute(list, tempList, nums);
+                tempList.remove(tempList.size() - 1);
+            }
+        }
     }
 
 }

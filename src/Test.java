@@ -5,8 +5,15 @@ import java.util.Map;
 
 public class Test {
     public static void main(String[] args) {
-        Test test = new Test();
-        System.out.println(test.findAnagrams("cbaebabacd", "abc"));
+//        Test test = new Test();
+//        System.out.println(test.findAnagrams("cbaebabacd", "abc"));
+
+        for (int i = 0; i < 1000; i++) {
+            int finalI = i;
+            new Thread(() -> System.out.println(finalI)).start();
+        }
+
+
     }
 
 
